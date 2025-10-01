@@ -1,4 +1,6 @@
 ﻿using Die_Class;
+using System.Diagnostics;
+using System.Diagnostics.Metrics;
 namespace Topic_1_6___Summative
 {
     internal class Program
@@ -8,16 +10,171 @@ namespace Topic_1_6___Summative
             Die die1 = new Die();
             Die die2 = new Die();
             int bank = 100;
-            int choice;
+            int bet;
+            string choice = "";
+            bool done = false;
             Console.WriteLine("Welcome to the SCAM Casino!");
-            Console.WriteLine("Press ENTER to continue...");
+            Console.WriteLine("Hit ENTER to continue...");
             Console.ReadLine();
             Console.Clear();
-            Console.WriteLine("What would you like to bet on?");
-            Console.WriteLine("Press 1 for Doubles (2x payout)");
-            Console.WriteLine("Press 2 for Not Doubles (0.5x payout)");
-            Console.WriteLine("Press 3 for Even Sum (1x payout)");
-            Console.WriteLine("Press 4 for Odd Sum (1x payout)");
+            while (!done)
+            {
+                Console.Clear();
+                Console.WriteLine("What would you like to bet on?");
+                Console.WriteLine("Press 1 for Doubles (2x payout)");
+                Console.WriteLine("Press 2 for Not Doubles (0.5x payout)");
+                Console.WriteLine("Press 3 for Even Sum (1x payout)");
+                Console.WriteLine("Press 4 for Odd Sum (1x payout)");
+                Console.WriteLine("Press Q to Quit");
+                Console.WriteLine();
+                choice = Console.ReadLine().ToLower().Trim();
+                Console.Clear();
+                if (bank == 0)
+                {
+                    Console.WriteLine("You are out of Tokens...");
+                    Console.WriteLine("Hit ENTER to continue...");
+                    Console.ReadLine();
+                    done = true;
+                }
+                else if (choice == "1")
+                {
+                    Console.WriteLine("You chose Doubles");
+                    Console.WriteLine("Hit ENTER to continue.");
+                    Console.ReadLine();
+                    Console.WriteLine($"You have {bank} Tokens");
+                    Console.WriteLine("How much would you like to bet?");
+                    while(!Int32.TryParse(Console.ReadLine(), out bet) || bet <= 0 || bet > bank)
+                    {
+                        Console.WriteLine("That is an invalid input... Try Again");
+                    }
+                    die1.RollDie();
+                    die2.RollDie();
+                    die1.DrawRoll();
+                    die2.DrawRoll();
+                    if (die1.Roll == die2.Roll)
+                    {
+                        Console.WriteLine("DOUBLES! YOU WIN!");
+                        bank = bank + (2 * bet);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Not doubles... you lose");
+                        bank = bank - bet;
+                    }
+                    Console.WriteLine($"You have {bank} Tokens");
+                    Console.WriteLine("Hit ENTER to continue.");
+                    Console.ReadLine();
+                }
+                else if (choice == "2")
+                {
+                    Console.WriteLine("You chose Not Doubles");
+                    Console.WriteLine("Hit ENTER to continue.");
+                    Console.ReadLine();
+                    Console.WriteLine($"You have {bank} Tokens");
+                    Console.WriteLine("How much would you like to bet?");
+                    while (!Int32.TryParse(Console.ReadLine(), out bet) || bet <= 0 || bet > bank)
+                    {
+                        Console.WriteLine("That is an invalid input... Try Again");
+                    }
+                    die1.RollDie();
+                    die2.RollDie();
+                    die1.DrawRoll();
+                    die2.DrawRoll();
+                    if (die1.Roll != die2.Roll)
+                    {
+                        Console.WriteLine("NOT DOUBLES! YOU WIN!");
+                        bank = bank + (bet / 2);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Doubles... you lose");
+                        bank = bank - bet;
+                    }
+                    Console.WriteLine($"You have {bank} Tokens");
+                    Console.WriteLine("Hit ENTER to continue.");
+                    Console.ReadLine();
+                }
+                else if (choice == "3")
+                {
+                    Console.WriteLine("You chose Even Sum");
+                    Console.WriteLine("Hit ENTER to continue.");
+                    Console.ReadLine();
+                    Console.WriteLine($"You have {bank} Tokens");
+                    Console.WriteLine("How much would you like to bet?");
+                    while (!Int32.TryParse(Console.ReadLine(), out bet) || bet <= 0 || bet > bank)
+                    {
+                        Console.WriteLine("That is an invalid input... Try Again");
+                    }
+                    die1.RollDie();
+                    die2.RollDie();
+                    die1.DrawRoll();
+                    die2.DrawRoll();
+                    if (die1.Roll + die2.Roll == 2 || die1.Roll + die2.Roll == 4 || die1.Roll + die2.Roll == 6 || die1.Roll + die2.Roll == 8 || die1.Roll + die2.Roll == 10 || die1.Roll + die2.Roll == 12)
+                    {
+                        Console.WriteLine("EVEN SUM! YOU WIN!");
+                        bank = bank + (bet);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Odd sum... you lose");
+                        bank = bank - bet;
+                    }
+                    Console.WriteLine($"You have {bank} Tokens");
+                    Console.WriteLine("Hit ENTER to continue.");
+                    Console.ReadLine();
+                }
+                else if (choice == "4")
+                {
+                    Console.WriteLine("You chose Odd Sum");
+                    Console.WriteLine("Hit ENTER to continue.");
+                    Console.ReadLine();
+                    Console.WriteLine($"You have {bank} Tokens");
+                    Console.WriteLine("How much would you like to bet?");
+                    while (!Int32.TryParse(Console.ReadLine(), out bet) || bet <= 0 || bet > bank)
+                    {
+                        Console.WriteLine("That is an invalid input... Try Again");
+                    }
+                    die1.RollDie();
+                    die2.RollDie();
+                    die1.DrawRoll();
+                    die2.DrawRoll();
+                    if (die1.Roll + die2.Roll == 3 || die1.Roll + die2.Roll == 5 || die1.Roll + die2.Roll == 7 || die1.Roll + die2.Roll == 9 || die1.Roll + die2.Roll == 11)
+                    {
+                        Console.WriteLine("ODD SUM! YOU WIN!");
+                        bank = bank + (bet);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Even sum... you lose");
+                        bank = bank - bet;
+                    }
+                    Console.WriteLine($"You have {bank} Tokens");
+                    Console.WriteLine("Hit ENTER to continue.");
+                    Console.ReadLine();
+                }
+                else if (choice == "q")
+                {
+                    Console.WriteLine("Thanks for playing!");
+                    done = true;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid choice, press ENTER to continue.");
+                    Console.ReadLine();
+                }
+            }
+            if (bank > 100)
+            {
+                Console.WriteLine($"You made {(bank - 100)} Tokens");
+            }
+            else if (bank < 100)
+            {
+                Console.WriteLine($"You lost {(100 - bank)} Tokens");
+            }
+            else
+            {
+                Console.WriteLine("You broke even");
+            }
         }
     }
 }
