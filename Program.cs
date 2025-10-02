@@ -9,8 +9,8 @@ namespace Topic_1_6___Summative
         {
             Die die1 = new Die();
             Die die2 = new Die();
-            int bank = 100;
-            int bet;
+            double bank = 100;
+            double bet;
             string choice = "";
             bool done = false;
             Console.WriteLine("Welcome to the SCAM Casino!");
@@ -21,8 +21,8 @@ namespace Topic_1_6___Summative
             {
                 Console.Clear();
                 Console.WriteLine("What would you like to bet on?");
-                Console.WriteLine("Press 1 for Doubles (2x payout)");
-                Console.WriteLine("Press 2 for Not Doubles (0.5x payout)");
+                Console.WriteLine("Press 1 for Doubles (5x payout)");
+                Console.WriteLine("Press 2 for Not Doubles (0.1x payout)");
                 Console.WriteLine("Press 3 for Even Sum (1x payout)");
                 Console.WriteLine("Press 4 for Odd Sum (1x payout)");
                 Console.WriteLine("Press Q to Quit");
@@ -39,11 +39,9 @@ namespace Topic_1_6___Summative
                 else if (choice == "1")
                 {
                     Console.WriteLine("You chose Doubles");
-                    Console.WriteLine("Hit ENTER to continue.");
-                    Console.ReadLine();
-                    Console.WriteLine($"You have {bank} Tokens");
+                    Console.WriteLine($"You have {Math.Round(bank, 0)} Tokens");
                     Console.WriteLine("How much would you like to bet?");
-                    while(!Int32.TryParse(Console.ReadLine(), out bet) || bet <= 0 || bet > bank)
+                    while(!Double.TryParse(Console.ReadLine(), out bet) || bet <= 0 || bet > bank)
                     {
                         Console.WriteLine("That is an invalid input... Try Again");
                     }
@@ -54,25 +52,24 @@ namespace Topic_1_6___Summative
                     if (die1.Roll == die2.Roll)
                     {
                         Console.WriteLine("DOUBLES! YOU WIN!");
-                        bank = bank + (2 * bet);
+                        bank = bank + (5 * bet);
                     }
                     else
                     {
-                        Console.WriteLine("Not doubles... you lose");
+                        Console.WriteLine($"Not doubles... you lose {bet} Tokens");
                         bank = bank - bet;
                     }
-                    Console.WriteLine($"You have {bank} Tokens");
+                    Console.WriteLine($"You have {Math.Round(bank, 0)} Tokens");
                     Console.WriteLine("Hit ENTER to continue.");
                     Console.ReadLine();
                 }
                 else if (choice == "2")
                 {
                     Console.WriteLine("You chose Not Doubles");
-                    Console.WriteLine("Hit ENTER to continue.");
-                    Console.ReadLine();
-                    Console.WriteLine($"You have {bank} Tokens");
+                    Console.WriteLine($"You have {Math.Round(bank, 0)} Tokens");
+                    Console.WriteLine($"The bet must be at least 10 Tokens, or you wont recieve the propper Token payout");
                     Console.WriteLine("How much would you like to bet?");
-                    while (!Int32.TryParse(Console.ReadLine(), out bet) || bet <= 0 || bet > bank)
+                    while (!Double.TryParse(Console.ReadLine(), out bet) || bet < 10 || bet > bank)
                     {
                         Console.WriteLine("That is an invalid input... Try Again");
                     }
@@ -83,25 +80,23 @@ namespace Topic_1_6___Summative
                     if (die1.Roll != die2.Roll)
                     {
                         Console.WriteLine("NOT DOUBLES! YOU WIN!");
-                        bank = bank + (bet / 2);
+                        bank = bank + (bet / 10);
                     }
                     else
                     {
-                        Console.WriteLine("Doubles... you lose");
+                        Console.WriteLine($"Doubles... you lose {bet} Tokens");
                         bank = bank - bet;
                     }
-                    Console.WriteLine($"You have {bank} Tokens");
+                    Console.WriteLine($"You have {Math.Round(bank, 0)} Tokens");
                     Console.WriteLine("Hit ENTER to continue.");
                     Console.ReadLine();
                 }
                 else if (choice == "3")
                 {
                     Console.WriteLine("You chose Even Sum");
-                    Console.WriteLine("Hit ENTER to continue.");
-                    Console.ReadLine();
-                    Console.WriteLine($"You have {bank} Tokens");
+                    Console.WriteLine($"You have {Math.Round(bank, 0)} Tokens");
                     Console.WriteLine("How much would you like to bet?");
-                    while (!Int32.TryParse(Console.ReadLine(), out bet) || bet <= 0 || bet > bank)
+                    while (!Double.TryParse(Console.ReadLine(), out bet) || bet <= 0 || bet > bank)
                     {
                         Console.WriteLine("That is an invalid input... Try Again");
                     }
@@ -116,21 +111,19 @@ namespace Topic_1_6___Summative
                     }
                     else
                     {
-                        Console.WriteLine("Odd sum... you lose");
+                        Console.WriteLine($"Odd sum... you lose {bet} Tokens");
                         bank = bank - bet;
                     }
-                    Console.WriteLine($"You have {bank} Tokens");
+                    Console.WriteLine($"You have {Math.Round(bank, 0)} Tokens");
                     Console.WriteLine("Hit ENTER to continue.");
                     Console.ReadLine();
                 }
                 else if (choice == "4")
                 {
                     Console.WriteLine("You chose Odd Sum");
-                    Console.WriteLine("Hit ENTER to continue.");
-                    Console.ReadLine();
-                    Console.WriteLine($"You have {bank} Tokens");
+                    Console.WriteLine($"You have {Math.Round(bank, 0)} Tokens");
                     Console.WriteLine("How much would you like to bet?");
-                    while (!Int32.TryParse(Console.ReadLine(), out bet) || bet <= 0 || bet > bank)
+                    while (!Double.TryParse(Console.ReadLine(), out bet) || bet <= 0 || bet > bank)
                     {
                         Console.WriteLine("That is an invalid input... Try Again");
                     }
@@ -145,10 +138,10 @@ namespace Topic_1_6___Summative
                     }
                     else
                     {
-                        Console.WriteLine("Even sum... you lose");
+                        Console.WriteLine($"Even sum... you lose {bet} Tokens");
                         bank = bank - bet;
                     }
-                    Console.WriteLine($"You have {bank} Tokens");
+                    Console.WriteLine($"You have {Math.Round(bank, 0)} Tokens");
                     Console.WriteLine("Hit ENTER to continue.");
                     Console.ReadLine();
                 }
@@ -165,11 +158,21 @@ namespace Topic_1_6___Summative
             }
             if (bank > 100)
             {
-                Console.WriteLine($"You made {(bank - 100)} Tokens");
+                if (bank == 101)
+                {
+                    Console.WriteLine("You made 1 Token");
+                }
+                else 
+                    Console.WriteLine($"You made {(Math.Round(bank, 0) - 100)} Tokens");
             }
             else if (bank < 100)
             {
-                Console.WriteLine($"You lost {(100 - bank)} Tokens");
+                if (bank == 99)
+                {
+                    Console.WriteLine("You lost 1 Token");
+                }
+                else 
+                    Console.WriteLine($"You lost {(100 - Math.Round(bank, 0))} Tokens");
             }
             else
             {
