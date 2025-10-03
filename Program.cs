@@ -21,7 +21,7 @@ namespace Topic_1_6___Summative
             {
                 Console.Clear();
                 Console.WriteLine("What would you like to bet on?");
-                Console.WriteLine("Press 1 for Doubles (5x payout)");
+                Console.WriteLine("Press 1 for Doubles (4x payout)");
                 Console.WriteLine("Press 2 for Not Doubles (0.1x payout)");
                 Console.WriteLine("Press 3 for Even Sum (1x payout)");
                 Console.WriteLine("Press 4 for Odd Sum (1x payout)");
@@ -52,7 +52,7 @@ namespace Topic_1_6___Summative
                     if (die1.Roll == die2.Roll)
                     {
                         Console.WriteLine("DOUBLES! YOU WIN!");
-                        bank = bank + (5 * bet);
+                        bank = bank + (4 * bet);
                     }
                     else
                     {
