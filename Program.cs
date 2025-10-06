@@ -7,8 +7,8 @@ namespace Topic_1_6___Summative
     {
         static void Main(string[] args)
         {
-            Die die1 = new Die();
-            Die die2 = new Die();
+            Die die1 = new Die(ConsoleColor.Green);
+            Die die2 = new Die(ConsoleColor.Green);
             double bank = 100;
             double bet;
             string choice = "";
